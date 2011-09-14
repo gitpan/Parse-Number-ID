@@ -1,0 +1,49 @@
+NAME
+    Parse::Number::ID - Parse number from Indonesian text
+
+VERSION
+    version 0.01
+
+SYNOPSIS
+     use Parse::Number::ID qw(parse_number_id);
+
+     my $num = parse_number_id(text=>"12.345,67"); # 12345.67
+
+DESCRIPTION
+    This module parses numbers from text, according to Indonesian rule of
+    decimal- and thousand separators ("," and "." respectively, while
+    English uses "." and "," respectively). Since English numbers are more
+    widespread, it will be parsed to whenever unambiguous, e.g.:
+
+     12.3     # 12.3
+     12.34    # 12.34
+     12.345   # 12345
+
+    This module does not parse numbers that are written as Indonesian words,
+    e.g. "seratus dua puluh tiga" (123). See Lingua::ID::Words2Nums for
+    that.
+
+FUNCTIONS
+    None of the functions are exported by default, but they are exportable.
+
+  parse_number_id(%args) -> RESULT
+    Parse number from Indonesian text.
+
+    Arguments ("*" denotes required arguments):
+
+    *   text* => *str*
+
+        The input text that contains number.
+
+SEE ALSO
+    Lingua::ID::Words2Nums
+
+AUTHOR
+    Steven Haryanto <stevenharyanto@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2011 by Steven Haryanto.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
