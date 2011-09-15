@@ -2,18 +2,20 @@ NAME
     Parse::Number::ID - Parse number from Indonesian text
 
 VERSION
-    version 0.01
+    version 0.02
 
 SYNOPSIS
      use Parse::Number::ID qw(parse_number_id);
 
-     my $num = parse_number_id(text=>"12.345,67"); # 12345.67
+     my @a = map {parse_number_id(text=>$_)}
+         ("12.345,67", "-1,2e3", "x123", "1.23");
+     # @a = [12345.67, -1200, undef, 1.23]
 
 DESCRIPTION
     This module parses numbers from text, according to Indonesian rule of
     decimal- and thousand separators ("," and "." respectively, while
-    English uses "." and "," respectively). Since English numbers are more
-    widespread, it will be parsed to whenever unambiguous, e.g.:
+    English uses "." and ","). Since English numbers are more widespread, it
+    will be parsed too whenever unambiguous, e.g.:
 
      12.3     # 12.3
      12.34    # 12.34

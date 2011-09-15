@@ -20,4 +20,4 @@ requires:
 resources:
   homepage: http://search.cpan.org/dist/Parse-Number-ID/
   repository: http://github.com/sharyanto/Parse-Number-ID
-version: 0.01
+version: 0.02

@@ -8,7 +8,7 @@ require Exporter;
 our @ISA       = qw(Exporter);
 our @EXPORT_OK = qw(parse_number_id);
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 our %SPEC;
 
@@ -20,8 +20,9 @@ sub _clean_nd {
 
 sub _parse_mantissa {
     my $n = shift;
-    if ($n =~ /^([\d,.]*)\.(\d{0,2})$/) {
-        return _clean_nd($1 || 0) + "0.$2";
+    if ($n =~ /^([+-]?)([\d,.]*)\.(\d{0,2})$/) {
+        return (_clean_nd($2 || 0) + "0.$3")*
+            ($1 eq '-' ? -1 : 1);
     } else {
         $n =~ s/\.//g;
         $n =~ s/,/./g;
@@ -67,20 +68,22 @@ Parse::Number::ID - Parse number from Indonesian text
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
  use Parse::Number::ID qw(parse_number_id);
 
- my $num = parse_number_id(text=>"12.345,67"); # 12345.67
+ my @a = map {parse_number_id(text=>$_)}
+     ("12.345,67", "-1,2e3", "x123", "1.23");
+ # @a = [12345.67, -1200, undef, 1.23]
 
 =head1 DESCRIPTION
 
 This module parses numbers from text, according to Indonesian rule of decimal-
 and thousand separators ("," and "." respectively, while English uses "." and
-"," respectively). Since English numbers are more widespread, it will be parsed
-to whenever unambiguous, e.g.:
+","). Since English numbers are more widespread, it will be parsed too whenever
+unambiguous, e.g.:
 
  12.3     # 12.3
  12.34    # 12.34
