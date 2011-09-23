@@ -2,7 +2,7 @@ NAME
     Parse::Number::ID - Parse number from Indonesian text
 
 VERSION
-    version 0.02
+    version 0.03
 
 SYNOPSIS
      use Parse::Number::ID qw(parse_number_id);
@@ -24,6 +24,14 @@ DESCRIPTION
     This module does not parse numbers that are written as Indonesian words,
     e.g. "seratus dua puluh tiga" (123). See Lingua::ID::Words2Nums for
     that.
+
+VARIABLES
+    None are exported by default, but they are exportable.
+
+  $Pat (REGEX)
+    A regex for quickly matching/extracting number from text. It's not 100%
+    perfect (the extracted number might not be valid), but it's simple and
+    fast.
 
 FUNCTIONS
     None of the functions are exported by default, but they are exportable.

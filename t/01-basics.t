@@ -3,7 +3,7 @@
 use 5.010;
 use strict;
 use warnings;
-use Parse::Number::ID qw(parse_number_id);
+use Parse::Number::ID qw(parse_number_id $Pat);
 use Test::More 0.96;
 
 sub test_parse {
@@ -63,6 +63,41 @@ test_parse name=>'exponent 4', args=>{text=>'-1e-5'}, res => -1e-5;
 test_parse name=>'exponent 5', args=>{text=>'1,1e2'}, res => 1.1e2;
 test_parse name=>'exponent 6', args=>{text=>'1.1e2'}, res => 1.1e2;
 test_parse name=>'exponent 6', args=>{text=>'.12e2'}, res => 12;
+
+my %test_pat = (
+    "1" => 1,
+    "1.23" => 1,
+    "+1.23" => 1,
+    "1,23" => 1,
+    "-1,23" => 1,
+    "9e-1" => 1,
+    "9.1e+2" => 1,
+    "9,13e3" => 1,
+    "9,000,000" => 1,
+    "9.000.000" => 1,
+    "9,000.3" => 1,
+    "90.000,4" => 1,
+
+    "abc" => 0,
+    "1abc" => 0,
+    "abc2" => 0,
+    "e" => 0,
+    "e3" => 0,
+    "++1" => 0,
+    "9,000,4" => 0,
+    "9.000.5" => 0,
+    "9,000,0000" => 0,
+    "9.000.0000" => 0,
+);
+
+for (sort keys %test_pat) {
+    my $match = $_ =~ /\A$Pat\z/;
+    if ($test_pat{$_}) {
+        ok($match, "'$_' matches");
+    } else {
+        ok(!$match, "'$_' doesn't match");
+    }
+}
 
 DONE_TESTING:
 done_testing();
