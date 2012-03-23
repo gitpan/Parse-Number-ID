@@ -8,7 +8,7 @@ require Exporter;
 our @ISA       = qw(Exporter);
 our @EXPORT_OK = qw(parse_number_id $Pat);
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 our %SPEC;
 
@@ -79,7 +79,7 @@ Parse::Number::ID - Parse number from Indonesian text
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 
@@ -87,7 +87,7 @@ version 0.03
 
  my @a = map {parse_number_id(text=>$_)}
      ("12.345,67", "-1,2e3", "x123", "1.23");
- # @a = [12345.67, -1200, undef, 1.23]
+ # @a = (12345.67, -1200, undef, 1.23)
 
 =head1 DESCRIPTION
 
@@ -116,12 +116,18 @@ A regex for quickly matching/extracting number from text. It's not 100% perfect
 
 None of the functions are exported by default, but they are exportable.
 
-=head2 parse_number_id(%args) -> RESULT
+=head1 SEE ALSO
 
+L<Lingua::ID::Words2Nums>
+
+=head1 FUNCTIONS
+
+
+=head2 parse_number_id(%args) -> [status, msg, result, meta]
 
 Parse number from Indonesian text.
 
-Arguments (C<*> denotes required arguments):
+Arguments ('*' denotes required arguments):
 
 =over 4
 
@@ -131,9 +137,9 @@ The input text that contains number.
 
 =back
 
-=head1 SEE ALSO
+Return value:
 
-L<Lingua::ID::Words2Nums>
+Returns an enveloped result (an array). First element (status) is an integer containing HTTP status code (200 means OK, 4xx caller error, 5xx function error). Second element (msg) is a string containing error message, or 'OK' if status is 200. Third element (result) is optional, the actual result. Fourth element (meta) is called result metadata and is optional, a hash that contains extra information.
 
 =head1 AUTHOR
 
@@ -141,7 +147,7 @@ Steven Haryanto <stevenharyanto@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Steven Haryanto.
+This software is copyright (c) 2012 by Steven Haryanto.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

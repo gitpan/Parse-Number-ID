@@ -42,7 +42,7 @@ test_parse name => 'decimal (id 1)', args=>{text => '12,3'}, res => 12.3;
 test_parse name => 'decimal (id 2)', args=>{text => ',3'}, res => 0.3;
 test_parse name => 'decimal (id 3)', args=>{text => '-12,3'}, res => -12.3;
 test_parse name => 'decimal (en 1)', args=>{text => '12.31'}, res => 12.31;
-test_parse name => 'decimal (en 2)', args=>{text => ',31'}, res => 0.31;
+test_parse name => 'decimal (en 2)', args=>{text => '.31'}, res => 0.31;
 test_parse name => 'decimal (en 3)', args=>{text => '-12.31'}, res => -12.31;
 test_parse name=>'thousand sep 1', args=>{text=>'123.001'}, res => 123001;
 test_parse name=>'thousand sep 2', args=>{text=>'12.300.000'}, res => 12300000;
