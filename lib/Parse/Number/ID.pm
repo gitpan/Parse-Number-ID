@@ -8,7 +8,7 @@ require Exporter;
 our @ISA       = qw(Exporter);
 our @EXPORT_OK = qw(parse_number_id $Pat);
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
 
 our %SPEC;
 
@@ -43,11 +43,15 @@ sub _parse_mantissa {
 }
 
 $SPEC{parse_number_id} = {
+    v => 1.1,
     summary => 'Parse number from Indonesian text',
     args    => {
-        text => ['str*' => {
+        text => {
             summary => 'The input text that contains number',
-        }],
+            schema => 'str*',
+            pos => 0,
+            req => 1,
+        },
     },
     result_naked => 1,
 };
@@ -79,7 +83,7 @@ Parse::Number::ID - Parse number from Indonesian text
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -120,8 +124,15 @@ None of the functions are exported by default, but they are exportable.
 
 L<Lingua::ID::Words2Nums>
 
+=head1 DESCRIPTION
+
+
+This module has L<Rinci> metadata.
+
 =head1 FUNCTIONS
 
+
+None are exported by default, but they are exportable.
 
 =head2 parse_number_id(%args) -> [status, msg, result, meta]
 

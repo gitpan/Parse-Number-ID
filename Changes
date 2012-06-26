@@ -1,5 +1,10 @@
 Revision history for Parse-Number-ID
 
+0.05    2012-06-26
+
+        No functional changes. Tweak Rinci metadata.
+
+
 0.04    2012-03-23
 
         No functional changes. Remove dependency to old module Sub::Spec.
