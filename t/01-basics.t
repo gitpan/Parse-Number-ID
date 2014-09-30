@@ -4,7 +4,7 @@ use 5.010;
 use strict;
 use warnings;
 use Parse::Number::ID qw(parse_number_id $Pat);
-use Test::More 0.96;
+use Test::More 0.98;
 
 sub test_parse {
     my (%args) = @_;

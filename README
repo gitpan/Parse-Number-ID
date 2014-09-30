@@ -2,7 +2,8 @@ NAME
     Parse::Number::ID - Parse number from Indonesian text
 
 VERSION
-    version 0.05
+    This document describes version 0.06 of Parse::Number::ID (from Perl
+    distribution Parse-Number-ID), released on 2014-09-28.
 
 SYNOPSIS
      use Parse::Number::ID qw(parse_number_id);
@@ -12,14 +13,18 @@ SYNOPSIS
      # @a = (12345.67, -1200, undef, 1.23)
 
 DESCRIPTION
-    This module parses numbers from text, according to Indonesian rule of
-    decimal- and thousand separators ("," and "." respectively, while
-    English uses "." and ","). Since English numbers are more widespread, it
-    will be parsed too whenever unambiguous, e.g.:
+    The goal of this module is to parse/extract numbers commonly found in
+    Indonesian text. It currently parses numbers according to Indonesian
+    rule of decimal- and thousand separators ("," and "." respectively) *as
+    well as* English ("." and ","), since English numbers are more
+    widespread and sometimes mixed within.
 
      12.3     # 12.3
      12.34    # 12.34
      12.345   # 12345
+
+    In the future this module might also parse fractions (e.g. 1/3, 2 1/2)
+    and percentages (e.g. 1,2%).
 
     This module does not parse numbers that are written as Indonesian words,
     e.g. "seratus dua puluh tiga" (123). See Lingua::ID::Words2Nums for
@@ -36,16 +41,7 @@ VARIABLES
 FUNCTIONS
     None of the functions are exported by default, but they are exportable.
 
-SEE ALSO
-    Lingua::ID::Words2Nums
-
-DESCRIPTION
-    This module has Rinci metadata.
-
-FUNCTIONS
-    None are exported by default, but they are exportable.
-
-  parse_number_id(%args) -> [status, msg, result, meta]
+  parse_number_id(%args) -> any
     Parse number from Indonesian text.
 
     Arguments ('*' denotes required arguments):
@@ -56,18 +52,42 @@ FUNCTIONS
 
     Return value:
 
-    Returns an enveloped result (an array). First element (status) is an
-    integer containing HTTP status code (200 means OK, 4xx caller error, 5xx
-    function error). Second element (msg) is a string containing error
-    message, or 'OK' if status is 200. Third element (result) is optional,
-    the actual result. Fourth element (meta) is called result metadata and
-    is optional, a hash that contains extra information.
+     (any)
+
+FAQ
+  How does this module differ from other number-parsing modules?
+    This module uses a single regex and provides the regex for you to use.
+    Other modules might be more accurate and/or faster. But this module is
+    pretty fast.
+
+    Also, since English text are often found in Indonesian text, parsing
+    English numbers (which uses periods for decimals and commas for thousand
+    separators instead of the other way around) is also done, as long as it
+    is not ambiguous.
+
+SEE ALSO
+    Lingua::ID::Words2Nums
+
+HOMEPAGE
+    Please visit the project's homepage at
+    <https://metacpan.org/release/Parse-Number-ID>.
+
+SOURCE
+    Source repository is at
+    <https://github.com/sharyanto/perl-Parse-Number-ID>.
+
+BUGS
+    Please report any bugs or feature requests on the bugtracker website
+    <https://rt.cpan.org/Public/Dist/Display.html?Name=Parse-Number-ID>
+
+    When submitting a bug or request, please include a test-file or a patch
+    to an existing test-file that illustrates the bug or desired feature.
 
 AUTHOR
-    Steven Haryanto <stevenharyanto@gmail.com>
+    perlancar <perlancar@cpan.org>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2012 by Steven Haryanto.
+    This software is copyright (c) 2014 by perlancar@cpan.org.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.

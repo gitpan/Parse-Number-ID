@@ -1,6 +1,6 @@
 package Parse::Number::ID;
 
-use 5.010;
+use 5.010001;
 use strict;
 use warnings;
 
@@ -8,15 +8,15 @@ require Exporter;
 our @ISA       = qw(Exporter);
 our @EXPORT_OK = qw(parse_number_id $Pat);
 
-our $VERSION = '0.05'; # VERSION
+our $VERSION = '0.06'; # VERSION
 
 our %SPEC;
 
 our $Pat = qr/(?:
                   [+-]?
                   (?:
-                      \d{1,2}([.]\d{3})*(?:[,]\d*)? | # indo
-                      \d{1,2}([,]\d{3})*(?:[.]\d*)? | # english
+                      \d{1,2}(?:[.]\d{3})*(?:[,]\d*)? | # indo
+                      \d{1,2}(?:[,]\d{3})*(?:[.]\d*)? | # english
                       [,.]\d+ |
                       \d+
                   )
@@ -74,8 +74,11 @@ sub parse_number_id {
 1;
 # ABSTRACT: Parse number from Indonesian text
 
+__END__
 
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -83,7 +86,7 @@ Parse::Number::ID - Parse number from Indonesian text
 
 =head1 VERSION
 
-version 0.05
+This document describes version 0.06 of Parse::Number::ID (from Perl distribution Parse-Number-ID), released on 2014-09-28.
 
 =head1 SYNOPSIS
 
@@ -95,14 +98,17 @@ version 0.05
 
 =head1 DESCRIPTION
 
-This module parses numbers from text, according to Indonesian rule of decimal-
-and thousand separators ("," and "." respectively, while English uses "." and
-","). Since English numbers are more widespread, it will be parsed too whenever
-unambiguous, e.g.:
+The goal of this module is to parse/extract numbers commonly found in Indonesian
+text. It currently parses numbers according to Indonesian rule of decimal- and
+thousand separators ("," and "." respectively) I<as well as> English ("." and
+","), since English numbers are more widespread and sometimes mixed within.
 
  12.3     # 12.3
  12.34    # 12.34
  12.345   # 12345
+
+In the future this module might also parse fractions (e.g. 1/3, 2 1/2) and
+percentages (e.g. 1,2%).
 
 This module does not parse numbers that are written as Indonesian words, e.g.
 "seratus dua puluh tiga" (123). See L<Lingua::ID::Words2Nums> for that.
@@ -120,21 +126,8 @@ A regex for quickly matching/extracting number from text. It's not 100% perfect
 
 None of the functions are exported by default, but they are exportable.
 
-=head1 SEE ALSO
 
-L<Lingua::ID::Words2Nums>
-
-=head1 DESCRIPTION
-
-
-This module has L<Rinci> metadata.
-
-=head1 FUNCTIONS
-
-
-None are exported by default, but they are exportable.
-
-=head2 parse_number_id(%args) -> [status, msg, result, meta]
+=head2 parse_number_id(%args) -> any
 
 Parse number from Indonesian text.
 
@@ -150,21 +143,48 @@ The input text that contains number.
 
 Return value:
 
-Returns an enveloped result (an array). First element (status) is an integer containing HTTP status code (200 means OK, 4xx caller error, 5xx function error). Second element (msg) is a string containing error message, or 'OK' if status is 200. Third element (result) is optional, the actual result. Fourth element (meta) is called result metadata and is optional, a hash that contains extra information.
+ (any)
+
+=head1 FAQ
+
+=head2 How does this module differ from other number-parsing modules?
+
+This module uses a single regex and provides the regex for you to use. Other
+modules might be more accurate and/or faster. But this module is pretty fast.
+
+Also, since English text are often found in Indonesian text, parsing English
+numbers (which uses periods for decimals and commas for thousand separators
+instead of the other way around) is also done, as long as it is not ambiguous.
+
+=head1 SEE ALSO
+
+L<Lingua::ID::Words2Nums>
+
+=head1 HOMEPAGE
+
+Please visit the project's homepage at L<https://metacpan.org/release/Parse-Number-ID>.
+
+=head1 SOURCE
+
+Source repository is at L<https://github.com/sharyanto/perl-Parse-Number-ID>.
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website L<https://rt.cpan.org/Public/Dist/Display.html?Name=Parse-Number-ID>
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
 
 =head1 AUTHOR
 
-Steven Haryanto <stevenharyanto@gmail.com>
+perlancar <perlancar@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Steven Haryanto.
+This software is copyright (c) 2014 by perlancar@cpan.org.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-
