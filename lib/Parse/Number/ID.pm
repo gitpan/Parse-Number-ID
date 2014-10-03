@@ -8,20 +8,23 @@ require Exporter;
 our @ISA       = qw(Exporter);
 our @EXPORT_OK = qw(parse_number_id $Pat);
 
-our $VERSION = '0.06'; # VERSION
+our $VERSION = '0.07'; # VERSION
 
 our %SPEC;
 
-our $Pat = qr/(?:
-                  [+-]?
-                  (?:
-                      \d{1,2}(?:[.]\d{3})*(?:[,]\d*)? | # indo
-                      \d{1,2}(?:[,]\d{3})*(?:[.]\d*)? | # english
-                      [,.]\d+ |
-                      \d+
-                  )
-                  (?:[Ee][+-]?\d+)?
-              )/x;
+#our $Pat = qr/(?:
+#                  [+-]?
+#                  (?:
+#                      \d{1,2}(?:[.]\d{3})*(?:[,]\d*)? | # indo
+#                      \d{1,2}(?:[,]\d{3})*(?:[.]\d*)? | # english
+#                      [,.]\d+ |
+#                      \d+
+#                  )
+#                  (?:[Ee][+-]?\d+)?
+#              )/x;
+
+# non /x version
+our $Pat = '(?:[+-]?(?:\d{1,2}(?:[.]\d{3})*(?:[,]\d*)?|\d{1,2}(?:[,]\d{3})*(?:[.]\d*)?|[,.]\d+|\d+)(?:[Ee][+-]?\d+)?)';
 
 sub _clean_nd {
     my $n = shift;
@@ -86,7 +89,7 @@ Parse::Number::ID - Parse number from Indonesian text
 
 =head1 VERSION
 
-This document describes version 0.06 of Parse::Number::ID (from Perl distribution Parse-Number-ID), released on 2014-09-28.
+This document describes version 0.07 of Parse::Number::ID (from Perl distribution Parse-Number-ID), released on 2014-10-03.
 
 =head1 SYNOPSIS
 
@@ -111,13 +114,14 @@ In the future this module might also parse fractions (e.g. 1/3, 2 1/2) and
 percentages (e.g. 1,2%).
 
 This module does not parse numbers that are written as Indonesian words, e.g.
-"seratus dua puluh tiga" (123). See L<Lingua::ID::Words2Nums> for that.
+"seratus dua puluh tiga" (123). See L<Lingua::ID::Words2Nums> and
+L<Regexp::ID::NumVerbage> for that.
 
 =head1 VARIABLES
 
 None are exported by default, but they are exportable.
 
-=head2 $Pat (REGEX)
+=head2 $Pat (regex)
 
 A regex for quickly matching/extracting number from text. It's not 100% perfect
 (the extracted number might not be valid), but it's simple and fast.

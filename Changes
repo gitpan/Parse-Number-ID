@@ -1,5 +1,12 @@
 Revision history for Parse-Number-ID
 
+0.07    2014-10-03 (PERLANCAR)
+
+        - No functional changes.
+
+        - Produce non /x regex string instead of /x regexp object in $Pat.
+
+
 0.06    2014-09-28 (PERLANCAR)
 
         - Avoid capturing group in regex pattern.
